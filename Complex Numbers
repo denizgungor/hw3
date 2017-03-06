@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+struct Rec1 {
+	double real;
+	double imaj;
+
+	Rec1(){   // defining empty constructor
+		cout<<1<<endl;
+		real=1;
+		imaj=1i;
+	}
+};
+
+struct Rec2 {
+	double real;
+	double imaj;
+	void operator += (Rec2& a){
+		real += a.real;
+		imaj += a.imaj;
+	}
+};
+
+struct Rec3 {
+	double real;
+	double imaj;
+	void operator += (Rec3& a){
+		real -= a.real;
+		imaj -= a.imaj;
+	}
+};
+
+istream& operator>>(istream& in, Rec1& u){
+	in>>u.real>> u.imaj;
+	return in;
+}
+
+ostream& operator>>(ostream& out, Rec1& u){
+	out<<u.real<< u.imaj;
+	return out;
+}
+
+int main() {
+	Rec1 u;
+	cout << "Input elements of first complex number";
+	cin >> u;
+
+	Rec1 w;
+	cout << "Input elements of second complex number";
+	cin >> w;
+
+	cout << u.real << " " << u.imaj << endl;
+	cout << w.real << " " << w.imaj << endl;
+
+	u+= w;
+	cout << u.real << " " << u.imaj << endl;
+
+	u-= w;
+	cout << u.real << " " << u.imaj << endl;
+
+	return 0;
+	}
